@@ -1,0 +1,73 @@
+
+algoritmo "Quick_Sort"
+
+var
+   numeros: vetor[1..10] de inteiro
+   pilhaEsq: vetor[1..100] de inteiro
+   pilhaDir: vetor[1..100] de inteiro
+   contador, topo: inteiro
+   esquerda, direita: inteiro
+   i, j, meio, pivo, aux: inteiro
+
+inicio
+   escreval("Digite 10 numeros inteiros:")
+
+   para contador de 1 ate 10 faca
+      escreva("Numero ", contador, ": ")
+      leia(numeros[contador])
+   fimpara
+
+   topo <- 1
+   pilhaEsq[topo] <- 1
+   pilhaDir[topo] <- 10
+
+   enquanto topo > 0 faca
+      esquerda <- pilhaEsq[topo]
+      direita <- pilhaDir[topo]
+      topo <- topo - 1
+
+      i <- esquerda
+      j <- direita
+      meio <- (esquerda + direita) div 2
+      pivo <- numeros[meio]
+
+      enquanto i <= j faca
+         enquanto numeros[i] < pivo faca
+            i <- i + 1
+         fimenquanto
+
+         enquanto numeros[j] > pivo faca
+            j <- j - 1
+         fimenquanto
+
+         se i <= j entao
+            aux <- numeros[i]
+            numeros[i] <- numeros[j]
+            numeros[j] <- aux
+
+            i <- i + 1
+            j <- j - 1
+         fimse
+      fimenquanto
+
+      se esquerda < j entao
+         topo <- topo + 1
+         pilhaEsq[topo] <- esquerda
+         pilhaDir[topo] <- j
+      fimse
+
+      se i < direita entao
+         topo <- topo + 1
+         pilhaEsq[topo] <- i
+         pilhaDir[topo] <- direita
+      fimse
+   fimenquanto
+
+   escreval("")
+   escreval("Vetor ordenado:")
+
+   para contador de 1 ate 10 faca
+      escreva(numeros[contador], " ")
+   fimpara
+
+fimalgoritmo
